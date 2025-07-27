@@ -1,130 +1,56 @@
--- Jailbreak-kompatible Silent Aim Version (Lernzwecke)
-
 if not game:IsLoaded() then game.Loaded:Wait() end
 
-getgenv().protectgui = getgenv().protectgui or function() end
-
-local SilentAimSettings = {
-    Enabled = true,
-    ToggleKey = "RightAlt",
-    TeamCheck = false,
-    VisibleCheck = false,
-    TargetPart = "HumanoidRootPart",
-    SilentAimMethod = "Mouse.Hit/Target",
-    FOVRadius = 160,
-    FOVVisible = true,
-    ShowSilentAimTarget = true,
-    MouseHitPrediction = true,
-    MouseHitPredictionAmount = 0.2,
-    HitChance = 100
-}
-
-getgenv().SilentAimSettings = SilentAimSettings
+-- Settings
+getgenv().SilentAimTarget = nil
+getgenv().SilentAimPart = "HumanoidRootPart"
 
 -- Services
-local Camera = workspace.CurrentCamera
 local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
-
+local Camera = workspace.CurrentCamera
 local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 
--- Drawing
-local mouse_box = Drawing.new("Square")
-mouse_box.Visible = true
-mouse_box.ZIndex = 999
-mouse_box.Color = Color3.fromRGB(54, 57, 241)
-mouse_box.Thickness = 20
-mouse_box.Size = Vector2.new(20, 20)
-mouse_box.Filled = true
+-- GUI
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "SilentAimMenu"
 
-local fov_circle = Drawing.new("Circle")
-fov_circle.Thickness = 1
-fov_circle.NumSides = 100
-fov_circle.Radius = SilentAimSettings.FOVRadius
-fov_circle.Filled = false
-fov_circle.Visible = SilentAimSettings.FOVVisible
-fov_circle.ZIndex = 999
-fov_circle.Transparency = 1
-fov_circle.Color = Color3.fromRGB(54, 57, 241)
+local TargetBox = Instance.new("TextLabel", ScreenGui)
+TargetBox.Position = UDim2.new(0.5, -100, 0, 20)
+TargetBox.Size = UDim2.new(0, 200, 0, 30)
+TargetBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TargetBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TargetBox.TextSize = 16
+TargetBox.Text = "Kein Ziel ausgewählt"
+TargetBox.BorderSizePixel = 0
 
--- Helpers
-local function getMousePosition()
-    return UserInputService:GetMouseLocation()
-end
-
-local function getPositionOnScreen(Vector)
-    local screenPos, onScreen = Camera:WorldToScreenPoint(Vector)
-    return Vector2.new(screenPos.X, screenPos.Y), onScreen
-end
-
-local function getClosestPlayer()
-    local closest = nil
-    local shortestDistance = math.huge
-
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player == LocalPlayer then continue end
-        if SilentAimSettings.TeamCheck and player.Team == LocalPlayer.Team then continue end
-
-        local character = player.Character
-        local targetPart = character and character:FindFirstChild(SilentAimSettings.TargetPart)
-        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-        if not (targetPart and humanoid and humanoid.Health > 0) then continue end
-
-        local screenPos, onScreen = getPositionOnScreen(targetPart.Position)
-        if not onScreen then continue end
-
-        local distance = (getMousePosition() - screenPos).Magnitude
-        if distance < shortestDistance and distance <= SilentAimSettings.FOVRadius then
-            closest = targetPart
-            shortestDistance = distance
+-- Select Target with E
+UIS.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == Enum.KeyCode.E and not gameProcessed then
+        local target = Mouse.Target
+        if target and target.Parent then
+            local model = target:FindFirstAncestorWhichIsA("Model")
+            if model and model:FindFirstChild("Humanoid") then
+                getgenv().SilentAimTarget = model
+                TargetBox.Text = "Ziel: " .. model.Name
+            end
         end
-    end
-
-    return closest
-end
-
--- Drawing updater
-RunService.RenderStepped:Connect(function()
-    local mousePos = getMousePosition()
-    fov_circle.Position = mousePos
-
-    if SilentAimSettings.FOVVisible then
-        fov_circle.Radius = SilentAimSettings.FOVRadius
-        fov_circle.Visible = true
-    else
-        fov_circle.Visible = false
-    end
-
-    local target = getClosestPlayer()
-    if target and SilentAimSettings.ShowSilentAimTarget and SilentAimSettings.Enabled then
-        local screenPos, onScreen = getPositionOnScreen(target.Position)
-        if onScreen then
-            mouse_box.Visible = true
-            mouse_box.Position = screenPos
-        else
-            mouse_box.Visible = false
-        end
-    else
-        mouse_box.Visible = false
     end
 end)
 
--- __index hook (Mouse.Hit/Target support)
-local oldIndex
+-- Silent Aim Hook (__index)
+local oldIndex = nil
 oldIndex = hookmetamethod(game, "__index", newcclosure(function(self, index)
-    if self == Mouse and not checkcaller() and SilentAimSettings.Enabled and SilentAimSettings.SilentAimMethod == "Mouse.Hit/Target" then
-        local target = getClosestPlayer()
-        if target then
-            if index == "Target" or index == "target" then
-                return target
-            elseif index == "Hit" or index == "hit" then
-                if SilentAimSettings.MouseHitPrediction then
-                    return (target.CFrame + target.Velocity * SilentAimSettings.MouseHitPredictionAmount).Position
-                else
-                    return target.Position
-                end
+    if self == Mouse and not checkcaller() and getgenv().SilentAimTarget then
+        local targetChar = getgenv().SilentAimTarget
+        local targetPart = targetChar:FindFirstChild(getgenv().SilentAimPart)
+
+        if targetPart then
+            if index:lower() == "target" then
+                return targetPart
+            elseif index:lower() == "hit" then
+                return targetPart.Position
             end
         end
     end
