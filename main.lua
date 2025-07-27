@@ -1,194 +1,302 @@
---===[ Konfiguration & State ]===--
-local config = {
-    SilentAimEnabled  = false,
-    SilentAimFOV      = 80,      -- Fester FOV-Radius in Pixeln
-    AimBotEnabled     = false,
-    ESPEnabled        = false,
+ice("RunService").Heartbeat:wait()
+                    keyrelease(0x4F)
+                    game:GetService("RunService").Heartbeat:wait()
+                until SpeedGlitch == false
+            end
+        end
+    end)
+end)
+
+Tab3:Button("FLY (X)",function(bool)
+    loadstring(game:HttpGet("https://pastebin.com/raw/sUA9m6M6"))()
+end)
+
+Tab3:Slider("Fov Camera",80,200,function(text)
+    workspace.CurrentCamera.FieldOfView = (text)
+end)
+
+Tab3:Button("Tryhard Anims",function(bool)
+    while true do
+        wait(1)
+        for i, player in ipairs(game.Players:GetChildren()) do
+        local Animate = game.Players.LocalPlayer.Character.Animate
+    Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=782841498"
+    Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=782841498"
+    Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616168032"
+    Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616163682"
+    Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083218792"
+    Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
+    Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
+    game.Players.LocalPlayer.Character.Humanoid.Jump = false
+        end
+    end
+end)
+
+Tab3:Button("Headless Client Sided",function(bool)
+    getgenv().game.Players.LocalPlayer.Character.Head.Transparency = 1
+    getgenv().game.Players.LocalPlayer.Character.Head.face:Destroy()
+    getgenv().game.Players.LocalPlayer.Character.Head.face:Destroy()
+end)
+
+Tab3:Button("Korblox Client Sided",function(bool)
+	local ply = game.Players.LocalPlayer
+	local chr = ply.Character
+	chr.RightLowerLeg.MeshId = "902942093"
+	chr.RightLowerLeg.Transparency = "1"
+	chr.RightUpperLeg.MeshId = "http://www.roblox.com/asset/?id=902942096"
+	chr.RightUpperLeg.TextureID = "http://roblox.com/asset/?id=902843398"
+	chr.RightFoot.MeshId = "902942089"
+	chr.RightFoot.Transparency = "1"
+end)
+
+Tab3:Button("Trash Talk (J)",function(bool)
+    local plr = game.Players.LocalPlayer
+repeat wait() until plr.Character
+local char = plr.Character
+
+local garbage = {
+    "ur bad";
+    "sonney boy";
+    "ez";
+    "my grandma has more skill than you";
+    "seed";
+    "sit son";
+    "trash";
+    "LOL";
+    "LMAO";
+    "imagine being you right now";
+    "xd";
+    "don't try LOL";
+    "you lose";
+    "why do you even try";
+    "I didn't think being this bad was possible";
+    "leave";
+    "no skill";
+    "so sad man.";
+    "bad";
+    "you're nothing";
+    "lol";
+    "so trash";
+    "so bad";
+    "ur salty";
+    "salty";
+    "look he's mad";
+    "cry more";
+    "keep crying";
+    "cry baby";
+    "hahaha I won";
+    "no one likes u";
+    "run 1s seed";
+    "thank you for your time";
+    "you were so close!";
+    "better luck next time!";
+    "rodent";
+    "HAHA";
+    "ill 5-0";
+    "just quit";
+    "time to take out the trash";
+    "did you get worse?";
+    "I'm surprised you haven't quit yet";
+
+
+
+
+
+
+
+
+
+
+
 }
-local AimKey = Enum.KeyCode.F
-local AimBotSmoothing = 0.25
-local ESPBoxSize = Vector2.new(50,50)
 
---===[ Services & Locals ]===--
-local Players     = game:GetService("Players")
-local RunService  = game:GetService("RunService")
-local UIS         = game:GetService("UserInputService")
-local StarterGui  = game:GetService("StarterGui")
-local Camera      = workspace.CurrentCamera
+
+function TrashTalk(inputObject, gameProcessedEvent)
+    if inputObject.KeyCode == Enum.KeyCode.J and gameProcessedEvent == false then        
+game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
+        garbage[math.random(1,#garbage)],
+        "All"
+    )
+    end
+end
+ 
+game:GetService("UserInputService").InputBegan:connect(TrashTalk)
+end)
+
+local Tab4 = Window:Tab("Anti-Lock",false)
+
+Tab4:Label("Anti-Lock")
+
+Tab4:Button("FIX ANTILOCK",function(bool)
+		
+    for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
+            v:Destroy()
+        end
+    end
+    game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+        repeat
+            wait()
+        until game.Players.LocalPlayer.Character
+        char.ChildAdded:Connect(function(child)
+            if child:IsA("Script") then 
+                wait(0.1)
+                if child:FindFirstChild("LocalScript") then
+                    child.LocalScript:FireServer()
+                end
+            end
+        end)
+    end)
+
+end)
+
+local glitch = false
+local clicker = false
+
+Tab4:Textbox("AntiLock (use -0.10 to -0.60)","Speed",function(a)
+		
+    getgenv().Multiplier = a
+
+end, {
+    ["clear"] = false,
+})
+
+Tab4:Button("Antilock Improved (Z)",function(bool)
+    local userInput = game:service('UserInputService')
+    local runService = game:service('RunService')
+    
+    userInput.InputBegan:connect(function(Key)
+        if Key.KeyCode == Enum.KeyCode.Z then
+            Enabled = not Enabled
+            if Enabled == true then
+                repeat
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * getgenv().Multiplier
+                    runService.Stepped:wait()
+                until Enabled == false
+            end
+        end
+    end)
+end)
+
+local Tab5 = Window:Tab("Teleports",false)
+
+Tab5:Label("Teleports")
+
+Tab5:Button("Double Barrel",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1039.59985, 18.8513641, -256.449951, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+end)
+
+Tab5:Button("Revolver",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-638.75, 18.8500004, -118.175011, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+end)
+
+Tab5:Button("Shotgun",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-578.623657, 5.47212696, -725.131531, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+end)
+
+Tab5:Button("Tactical Shotgun",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(470.877533, 45.1272316, -620.630676, 0.999999821, 0.000604254019, -2.60802135e-08, -0.000604254019, 0.999999821, -8.63220048e-05, -2.60802135e-08, 8.63220048e-05, 1)
+end)
+
+Tab5:Button("Smg",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-577.123413, 5.47666788, -718.031433, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+end)
+
+Tab5:Button("RPG",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-794.814697, -42.5468521, -932.97998, 5.96046448e-08, 2.91038305e-11, 1, -0.000610388815, 0.999999821, 2.91038305e-11, -0.999999762, -0.000610388815, 5.96046448e-08)
+end)
+
+Tab5:Button("Armor",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-607.978455, 7.44964886, -788.494263, -1.1920929e-07, 0, 1.00000012, 0, 1, 0, -1.00000012, 0, -1.1920929e-07)
+end)
+
+Tab5:Button("PopCorn",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-995, 21.6998043, -153.100037, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end)
+
+Tab5:Button("Casino 1v1",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-962.72345, 21.2549973, -186.814987, -0.0274876002, 2.91178949e-05, 0.999621451, -5.5798846e-06, 1, -2.92823333e-05, -0.999621451, -6.38268148e-06, -0.0274876002)
+end)
+
+Tab5:Button("Bank",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-402.123718, 21.75, -283.988617, 0.0159681588, -0.000121377925, -0.999872446, -2.60148026e-05, 1, -0.000121808866, 0.999872506, 2.79565484e-05, 0.0159681737)
+end)
+
+Tab5:Button("Main Food",function(value)
+    getgenv().game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-338.352173, 23.6826477, -297.2146, -0.0060598203, -1.03402984e-08, -0.999981582, -1.61653102e-09, 1, -1.03306892e-08, 0.999981582, 1.55389912e-09, -0.0060598203)
+end)
+
+local Tab6 = Window:Tab("Keybind",false)
+
+Tab6:Label("Keybind")
+
+Tab6:Keybind("Toggle",Enum.KeyCode.V,function()
+    Library:Toggle()
+end)
+
+local Tab7 = Window:Tab("Credits",false)
+
+Tab7:Label("kermetthefrog#2591,rsalinq#4098")
+
+local Aiming = loadstring(game:HttpGet("https://pastebin.com/raw/vsVecTqs"))()
+Aiming.TeamCheck(false)
+
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
 local LocalPlayer = Players.LocalPlayer
-local Mouse       = LocalPlayer:GetMouse()
+local Mouse = LocalPlayer:GetMouse()
+local CurrentCamera = Workspace.CurrentCamera
 
--- kurze Lade‑Notification
-StarterGui:SetCore("SendNotification", {
-    Title = "Jailbreak‑Hub",
-    Text  = "Menü wird erstellt…",
-    Duration = 3,
-})
+local DaHoodSettings = {
+    SilentAim = false,
+    AimLock = false,
+    Prediction = 0.157,
+    AimLockKeybind = Enum.KeyCode.E
+}
+getgenv().DaHoodSettings = DaHoodSettings
 
---===[ GUI: kleines Toggle‑Menu ]===--
-local screenGui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
-screenGui.IgnoreGuiInset = true
-
-local frame = Instance.new("Frame", screenGui)
-frame.Size              = UDim2.new(0,200,0,140)
-frame.Position          = UDim2.new(0,20,0,20)
-frame.BackgroundColor3  = Color3.new(0,0,0)
-frame.BackgroundTransparency = 0.4
-frame.BorderSizePixel   = 0
-
-local function makeToggle(name, label, offsetY, key)
-    local btn = Instance.new("TextButton", frame)
-    btn.Name               = name
-    btn.Size               = UDim2.new(1,-10,0,30)
-    btn.Position           = UDim2.new(0,5,0,offsetY)
-    btn.BackgroundColor3   = Color3.new(0.1,0.1,0.1)
-    btn.BackgroundTransparency = 0.2
-    btn.BorderSizePixel    = 0
-    btn.TextColor3         = Color3.new(1,1,1)
-    btn.Font               = Enum.Font.SourceSansSemibold
-    btn.TextSize           = 18
-    btn.Text               = label .. ": OFF"
-    btn.MouseButton1Click:Connect(function()
-        config[key] = not config[key]
-        btn.Text = label .. ": " .. (config[key] and "ON" or "OFF")
-    end)
-end
-
-makeToggle("ToggleSilentAim", "SilentAim", 10,  "SilentAimEnabled")
-makeToggle("ToggleAimBot",    "AimBot (F)", 50,  "AimBotEnabled")
-makeToggle("ToggleESP",       "ESP",         90,  "ESPEnabled")
-
-StarterGui:SetCore("SendNotification", {
-    Title = "Jailbreak‑Hub",
-    Text  = "Menü bereit! (SilentAim FOV = "..config.SilentAimFOV.."px)",
-    Duration = 4,
-})
-
---===[ SilentAim Hook ]===--
-do
-    local mt    = getrawmetatable(game)
-    local old   = mt.__namecall
-    local wrap  = newcclosure or function(f) return f end
-    setreadonly(mt, false)
-
-    mt.__namecall = wrap(function(self, ...)
-        local method = getnamecallmethod()
-        local args   = {...}
-
-        if config.SilentAimEnabled
-        and method == "FireServer"
-        and typeof(args[1]) == "Vector3"
-        then
-            local best, bestDist = nil, config.SilentAimFOV
-            for _, plr in ipairs(Players:GetPlayers()) do
-                if plr ~= LocalPlayer
-                and plr.Character
-                and plr.Character:FindFirstChild("HumanoidRootPart")
-                and plr.Character.Humanoid.Health > 0
-                then
-                    local worldPos = plr.Character.HumanoidRootPart.Position
-                    local screenPos, onScreen = Camera:WorldToViewportPoint(worldPos)
-                    if onScreen then
-                        local dist = (Vector2.new(screenPos.X,screenPos.Y) - Vector2.new(Mouse.X,Mouse.Y)).Magnitude
-                        if dist < bestDist then
-                            bestDist, best = dist, plr
-                        end
-                    end
-                end
-            end
-            if best then
-                args[1] = best.Character.HumanoidRootPart.Position
-            end
-        end
-
-        return old(self, unpack(args))
-    end)
-
-    setreadonly(mt, true)
-end
-
---===[ AimBot (F) ]===--
-do
-    local aiming = false
-    UIS.InputBegan:Connect(function(inp, gameProcessed)
-        if not gameProcessed and inp.KeyCode == AimKey then
-            aiming = true
-        end
-    end)
-    UIS.InputEnded:Connect(function(inp)
-        if inp.KeyCode == AimKey then
-            aiming = false
-        end
-    end)
-
-    RunService.RenderStepped:Connect(function(delta)
-        if config.AimBotEnabled and aiming then
-            local best, bestDist = nil, math.huge
-            for _, plr in ipairs(Players:GetPlayers()) do
-                if plr ~= LocalPlayer
-                and plr.Character
-                and plr.Character:FindFirstChild("HumanoidRootPart")
-                and plr.Character.Humanoid.Health > 0
-                then
-                    local screenPos, onScreen = Camera:WorldToViewportPoint(plr.Character.HumanoidRootPart.Position)
-                    if onScreen then
-                        local dist = (Vector2.new(screenPos.X,screenPos.Y) - Vector2.new(Mouse.X,Mouse.Y)).Magnitude
-                        if dist < bestDist then
-                            bestDist, best = dist, plr
-                        end
-                    end
-                end
-            end
-            if best then
-                local targetPos = best.Character.HumanoidRootPart.Position
-                local newCF = CFrame.new(Camera.CFrame.Position, targetPos)
-                Camera.CFrame = Camera.CFrame:Lerp(newCF, AimBotSmoothing)
-            end
-        end
-    end)
-end
-
---===[ ESP ]===--
-do
-    local drawings = {}
-    local function clearAll()
-        for _, d in ipairs(drawings) do
-            pcall(function() d:Remove() end)
-        end
-        drawings = {}
+function Aiming.Check()
+    if not (Aiming.Enabled == true and Aiming.Selected ~= LocalPlayer and Aiming.SelectedPart ~= nil) then
+        return false
     end
 
-    RunService.RenderStepped:Connect(function()
-        clearAll()
-        if not config.ESPEnabled then return end
+    local Character = Aiming.Character(Aiming.Selected)
+    local KOd = Character:WaitForChild("BodyEffects")["K.O"].Value
+    local Grabbed = Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
 
-        for _, plr in ipairs(Players:GetPlayers()) do
-            if plr ~= LocalPlayer
-            and plr.Character
-            and plr.Character:FindFirstChild("HumanoidRootPart")
-            and plr.Character.Humanoid.Health > 0
-            then
-                local worldPos = plr.Character.HumanoidRootPart.Position
-                local screenPos, onScreen = Camera:WorldToViewportPoint(worldPos)
-                if onScreen then
-                    local box = Drawing.new("Square")
-                    box.Position    = Vector2.new(screenPos.X - ESPBoxSize.X/2, screenPos.Y - ESPBoxSize.Y/2)
-                    box.Size        = ESPBoxSize
-                    box.Thickness   = 2
-                    box.Transparency= 1
-                    box.Color       = Color3.new(1,0,0)
-                    box.Filled      = false
-                    table.insert(drawings, box)
+    if (KOd or Grabbed) then
+        return false
+    end
 
-                    local txt = Drawing.new("Text")
-                    txt.Text        = plr.Name
-                    txt.Position    = Vector2.new(screenPos.X, screenPos.Y - ESPBoxSize.Y/2 - 5)
-                    txt.Center      = true
-                    txt.Outline     = true
-                    txt.Size        = 14
-                    table.insert(drawings, txt)
-                end
-            end
-        end
-    end)
+    return true
 end
+
+local __index
+__index = hookmetamethod(game, "__index", function(t, k)
+    if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and Aiming.Check()) then
+        local SelectedPart = Aiming.SelectedPart
+
+        if (DaHoodSettings.SilentAim and (k == "Hit" or k == "Target")) then
+            local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+
+            return (k == "Hit" and Hit or SelectedPart)
+        end
+    end
+
+    return __index(t, k)
+end)
+
+RunService:BindToRenderStep("AimLock", 0, function()
+    if (DaHoodSettings.AimLock and Aiming.Check() and UserInputService:IsKeyDown(DaHoodSettings.AimLockKeybind)) then
+        local SelectedPart = Aiming.SelectedPart
+
+        local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+
+        CurrentCamera.CFrame = CFrame.lookAt(CurrentCamera.CFrame.Position, Hit.Position)
+    end
+    end)
+   end,
+})
